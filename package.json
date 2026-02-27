@@ -18,6 +18,8 @@
     "typecheck": "npx nx run-many --target=typecheck --all",
     "test": "node tests/helpers.test.mjs",
     "test:unit": "node tests/helpers.test.mjs",
+    "test:testnet": "node tests/testnet-swap.mjs",
+    "test:agent-demo": "node tests/agent-swap-demo.mjs",
     "test:evals": "npx promptfoo eval --config evals/suites/swap-integration/promptfoo.yaml && npx promptfoo eval --config evals/suites/swap-planner/promptfoo.yaml",
     "test:evals:swap-integration": "npx promptfoo eval --config evals/suites/swap-integration/promptfoo.yaml",
     "test:evals:swap-planner": "npx promptfoo eval --config evals/suites/swap-planner/promptfoo.yaml",
@@ -38,5 +40,8 @@
     "promptfoo": "^0.120.22",
     "typescript": "^5.9.3",
     "vitepress": "^1.6.4"
+  },
+  "dependencies": {
+    "viem": "^2.46.3"
   }
 }

@@ -34,16 +34,20 @@ Integrate PancakeSwap swaps into frontends, backends, and smart contracts.
 
 ## Supported Chains
 
-| Chain              | Chain ID | V2 | V3 | StableSwap |
-| ------------------ | -------- | -- | -- | ---------- |
-| BNB Smart Chain    | 56       | ✅ | ✅ | ✅         |
-| Ethereum           | 1        | ❌ | ✅ | ❌         |
-| Arbitrum One       | 42161    | ❌ | ✅ | ❌         |
-| Base               | 8453     | ❌ | ✅ | ❌         |
-| Polygon            | 137      | ❌ | ✅ | ❌         |
-| zkSync Era         | 324      | ❌ | ✅ | ❌         |
-| Linea              | 59144    | ❌ | ✅ | ❌         |
-| opBNB              | 204      | ❌ | ✅ | ❌         |
+| Chain                    | Chain ID | V2 | V3 | StableSwap | RPC                                              |
+| ------------------------ | -------- | -- | -- | ---------- | ------------------------------------------------ |
+| BNB Smart Chain          | 56       | ✅ | ✅ | ✅         | `https://bsc-dataseed1.binance.org`              |
+| BNB Smart Chain Testnet  | 97       | ✅ | ❌ | ❌         | `https://bsc-testnet-rpc.publicnode.com or https://bsc-testnet.drpc.org` |
+| Ethereum                 | 1        | ❌ | ✅ | ❌         | `https://cloudflare-eth.com`                     |
+| Arbitrum One             | 42161    | ❌ | ✅ | ❌         | `https://arb1.arbitrum.io/rpc`                   |
+| Base                     | 8453     | ❌ | ✅ | ❌         | `https://mainnet.base.org`                       |
+| Polygon                  | 137      | ❌ | ✅ | ❌         | `https://polygon-rpc.com`                        |
+| zkSync Era               | 324      | ❌ | ✅ | ❌         | `https://mainnet.era.zksync.io`                  |
+| Linea                    | 59144    | ❌ | ✅ | ❌         | `https://rpc.linea.build`                        |
+| opBNB                    | 204      | ❌ | ✅ | ❌         | `https://opbnb-mainnet-rpc.bnbchain.org`         |
+
+> **For testing**: Use **BSC Testnet (chain ID 97)**. Get free testnet BNB from https://testnet.bnbchain.org/faucet-smart.
+> The Smart Router SDK does not index testnet pools — use **Method 3 (Direct V2 Router)** on testnet.
 
 ## Key Token Addresses
 
@@ -58,6 +62,15 @@ Integrate PancakeSwap swaps into frontends, backends, and smart contracts.
 | CAKE  | `0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82` |
 | ETH   | `0x2170Ed0880ac9A755fd29B2688956BD959F933F8` |
 | BTCB  | `0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c` |
+
+### BSC Testnet (Chain ID: 97)
+
+| Token    | Address                                      | Notes                |
+| -------- | -------------------------------------------- | -------------------- |
+| WBNB     | `0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd` |                      |
+| CAKE     | `0xFa60D973f7642b748046464E165A65B7323b0C73` |                      |
+| BUSD     | `0xeD24FC36d5Ee211Ea25A80239Fb8C4Cfd80f12Ee` |                      |
+| V2Router | `0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3` | PancakeSwap testnet  |
 
 ### Universal Router Addresses
 
