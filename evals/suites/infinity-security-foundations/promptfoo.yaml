@@ -1,5 +1,8 @@
 description: 'Infinity Security Foundations Skill Evaluation'
 
+# Run one test at a time — rubric grading LLM calls cause 429s at higher concurrency
+concurrency: 1
+
 prompts:
   - |
     You are an AI assistant. The user has loaded the following skill:
