@@ -24,6 +24,11 @@
       "name": "pancakeswap-infinity",
       "source": "./packages/plugins/pancakeswap-infinity",
       "description": "Security-first AI tools for PancakeSwap Infinity (v4) hook development — threat models, audit checklists, and base templates"
+    },
+    {
+      "name": "pancakeswap-farming",
+      "source": "./packages/plugins/pancakeswap-farming",
+      "description": "Plan yield farming, CAKE staking, veCAKE, and reward harvesting with deep links to the PancakeSwap farming UI"
     }
   ]
 }
