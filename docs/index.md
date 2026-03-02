@@ -17,10 +17,6 @@ hero:
       link: https://github.com/pancakeswap/pancakeswap-ai
 
 features:
-  - icon: 🔄
-    title: Swap Integration
-    details: Integrate PancakeSwap swaps via Smart Router SDK, Universal Router SDK, or direct V2/V3 contract calls across 9 chains.
-    link: /skills/swap-integration
   - icon: 🗺️
     title: Swap Planner
     details: Discover tokens, verify contracts, fetch prices, and generate ready-to-use deep links to the PancakeSwap UI.
@@ -55,10 +51,10 @@ User: "Swap 0.1 BNB for USDT on PancakeSwap"
 [PLAN]  swap-planner skill      → deep link for UI confirmation
         │
         ▼
-[CODE]  swap-integration skill  → TypeScript using viem + PancakeSwap SDKs
+[PLAN]  liquidity-planner skill → LP plan with fee tier + range suggestions
         │
         ▼
-[EXEC]  agent runs via Bash     → on-chain tx hash + balance report
+[SEC]   infinity-security-foundations → threat model + mitigation checklist
 ```
 
 ## Supported Chains

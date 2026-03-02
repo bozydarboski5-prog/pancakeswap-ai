@@ -6,7 +6,6 @@ Skills are the core building blocks of PancakeSwap AI. Each skill is a Markdown 
 
 | Skill | Plugin | Model | Description |
 |-------|--------|-------|-------------|
-| [`swap-integration`](/skills/swap-integration) | `pancakeswap-trading` | Opus | Integrate swaps via Routing API, Smart Router SDK, or V2 contracts |
 | [`swap-planner`](/skills/swap-planner) | `pancakeswap-driver` | Sonnet | Plan swaps with token discovery and deep link generation |
 | [`liquidity-planner`](/skills/liquidity-planner) | `pancakeswap-driver` | Sonnet | Plan LP positions with pool assessment and APY analysis |
 | [`infinity-security-foundations`](/skills/infinity-security-foundations) | `pancakeswap-infinity` | Opus | Security guide for Infinity hook development |

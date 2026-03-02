@@ -16,13 +16,12 @@ pancakeswap-ai/
 │   ├── promptfoo.yaml        # Root eval config
 │   ├── rubrics/              # Shared evaluation rubrics
 │   └── suites/               # Per-skill eval suites
-│       ├── swap-integration/   # pancakeswap-trading skill evals
 │       ├── swap-planner/       # pancakeswap-driver skill evals
+│       ├── liquidity-planner/  # pancakeswap-driver skill evals
 │       ├── farming-planner/    # pancakeswap-farming skill evals
 │       └── infinity-security-foundations/  # pancakeswap-infinity skill evals
 ├── packages/
 │   └── plugins/              # Claude Code plugins
-│       ├── pancakeswap-trading/   # Swap integration skill + expert agent
 │       ├── pancakeswap-driver/    # Swap planner + liquidity planner skills
 │       ├── pancakeswap-infinity/  # Infinity (v4) hook security foundations
 │       └── pancakeswap-farming/   # Farming planner (CAKE staking, yield farms, veCAKE)
@@ -36,21 +35,6 @@ pancakeswap-ai/
 ```
 
 ## Plugins
-
-### pancakeswap-trading
-
-**Purpose:** Integrate PancakeSwap swaps programmatically.
-
-**Skills:**
-- `swap-integration` — Complete guide for integrating PancakeSwap swaps using Smart Router SDK, Universal Router SDK, or direct V2/V3 contract calls.
-
-**Agents:**
-- `swap-integration-expert` — Sub-spawned for advanced questions about routing, Permit2, gas optimization, and contract integration.
-
-**Install:**
-```bash
-claude plugin add @pancakeswap/pancakeswap-trading
-```
 
 ### pancakeswap-driver
 
@@ -117,7 +101,7 @@ npm install
 1. Edit the `SKILL.md` file in the relevant skill directory
 2. Bump the `version` in the skill frontmatter AND in `.claude-plugin/plugin.json`
 3. Update the eval suite if behavior changes
-4. Run evals to verify: `npx promptfoo eval --config evals/suites/swap-integration/promptfoo.yaml`
+4. Run evals to verify: `npx promptfoo eval --config evals/suites/swap-planner/promptfoo.yaml`
 
 ### Code Quality
 
@@ -142,11 +126,11 @@ Evaluations use [Promptfoo](https://promptfoo.dev) with LLM-as-judge rubrics.
 ### Running Evals
 
 ```bash
-# Run swap-integration evals
-npx promptfoo eval --config evals/suites/swap-integration/promptfoo.yaml
-
 # Run swap-planner evals
 npx promptfoo eval --config evals/suites/swap-planner/promptfoo.yaml
+
+# Run liquidity-planner evals
+npx promptfoo eval --config evals/suites/liquidity-planner/promptfoo.yaml
 
 # Run farming-planner evals
 npx promptfoo eval --config evals/suites/farming-planner/promptfoo.yaml

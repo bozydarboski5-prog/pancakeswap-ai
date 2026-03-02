@@ -11,11 +11,6 @@
   },
   "plugins": [
     {
-      "name": "pancakeswap-trading",
-      "source": "./packages/plugins/pancakeswap-trading",
-      "description": "Integrate PancakeSwap swaps via Smart Router SDK, Universal Router, and direct contract calls"
-    },
-    {
       "name": "pancakeswap-driver",
       "source": "./packages/plugins/pancakeswap-driver",
       "description": "AI-powered assistance for discovering tokens, planning swaps, and planning liquidity positions with deep links"
