@@ -1,19 +1,11 @@
 # Plugins
 
-PancakeSwap AI ships four plugins, each packaging one or more skills for a specific domain.
+PancakeSwap AI ships three plugins, each packaging one or more skills for a specific domain.
 
 ## Plugin Architecture
 
 ```
 packages/plugins/
-├── pancakeswap-trading/        # Swap integration (SDK + contracts)
-│   ├── .claude-plugin/
-│   │   └── plugin.json
-│   ├── skills/
-│   │   └── swap-integration/
-│   │       └── SKILL.md
-│   └── agents/
-│       └── swap-integration-expert.md
 ├── pancakeswap-driver/         # Swap & liquidity planning + deep links
 │   ├── .claude-plugin/
 │   │   └── plugin.json
@@ -40,7 +32,6 @@ packages/plugins/
 
 | Plugin | Skills | Description |
 |--------|--------|-------------|
-| [`pancakeswap-trading`](/plugins/pancakeswap-trading) | `swap-integration` | Integrate swaps via Routing API, Smart Router SDK, or direct V2/V3 contracts |
 | [`pancakeswap-driver`](/plugins/pancakeswap-driver) | `swap-planner`, `liquidity-planner` | Plan swaps and LP positions with deep links to the PancakeSwap UI |
 | [`pancakeswap-infinity`](/plugins/pancakeswap-infinity) | `infinity-security-foundations` | Security guide for Infinity hook development |
 | [`pancakeswap-farming`](/plugins/pancakeswap-farming) | `farming-planner` | Plan yield farming, CAKE staking, veCAKE, and reward harvesting |
@@ -66,17 +57,16 @@ Each plugin declares its metadata and skill paths in `plugin.json`:
 
 ```json
 {
-  "name": "pancakeswap-trading",
+  "name": "pancakeswap-driver",
   "version": "1.0.0",
-  "description": "Integrate PancakeSwap swaps via Smart Router SDK...",
+  "description": "AI-powered planning for PancakeSwap swaps and liquidity",
   "author": {
     "name": "PancakeSwap",
     "email": "chef.sanji@pancakeswap.com"
   },
-  "keywords": ["pancakeswap", "swap", "defi"],
+  "keywords": ["pancakeswap", "swap", "liquidity", "defi"],
   "license": "MIT",
-  "skills": ["./skills/swap-integration"],
-  "agents": ["./agents/swap-integration-expert.md"]
+  "skills": ["./skills/swap-planner", "./skills/liquidity-planner"]
 }
 ```
 

@@ -9,20 +9,15 @@ Each skill has a corresponding eval suite that tests whether an LLM agent produc
 ```
 evals/
 └── suites/
-    ├── swap-integration/
-    │   ├── promptfoo.yaml         # Eval config
-    │   ├── cases/                 # Test case prompts
-    │   │   ├── basic-swap.md
-    │   │   ├── permit2-flow.md
-    │   │   └── multi-hop.md
-    │   └── rubrics/               # Grading criteria
-    │       ├── correctness.txt
-    │       └── completeness.txt
     ├── swap-planner/
     │   ├── promptfoo.yaml
     │   ├── cases/
     │   └── rubrics/
     ├── liquidity-planner/
+    │   ├── promptfoo.yaml
+    │   ├── cases/
+    │   └── rubrics/
+    ├── farming-planner/
     │   ├── promptfoo.yaml
     │   ├── cases/
     │   └── rubrics/
@@ -35,19 +30,19 @@ evals/
 ## How It Works
 
 1. **Skill content** is injected as context via a template variable (`{{skill_content}}`)
-2. **Test cases** provide user requests (e.g., "Write a swap script for USDT → CAKE on BSC")
+2. **Test cases** provide user requests
 3. The LLM generates a response
 4. **Assertions** grade the response:
-   - `llm-rubric` — LLM judges the output against a rubric (e.g., correctness, security)
-   - `contains` — checks for required strings (e.g., `@pancakeswap/smart-router`)
+   - `llm-rubric` — LLM judges the output against a rubric (for example correctness or security)
+   - `contains` — checks for required strings
    - `not-contains` — ensures dangerous patterns are absent
 
 ## Eval Configuration
 
-Example from `swap-integration`:
+Example from `swap-planner`:
 
 ```yaml
-description: 'swap-integration Skill Evaluation'
+description: 'swap-planner Skill Evaluation'
 
 prompts:
   - |
@@ -74,18 +69,6 @@ defaultTest:
     timeout: 180000
   vars:
     skill_content: file://path/to/SKILL.md
-
-tests:
-  - vars:
-      case_content: file://cases/basic-swap.md
-    assert:
-      - type: llm-rubric
-        value: file://rubrics/correctness.txt
-        threshold: 0.8
-      - type: contains
-        value: '@pancakeswap/smart-router'
-      - type: contains
-        value: 'getBestTrade'
 ```
 
 ## Running Evals
@@ -95,10 +78,10 @@ tests:
 export ANTHROPIC_API_KEY=your-key
 
 # Run individual suites
-npm run test:evals:swap-integration
 npm run test:evals:swap-planner
 npm run test:evals:liquidity-planner
 npm run test:evals:infinity-security
+npm run test:evals:farming-planner
 
 # Run all evals
 npm run test:evals
@@ -115,8 +98,8 @@ All PRs must maintain **≥ 85% pass rate** on every eval suite. This ensures sk
 
 | Type | Purpose | Example |
 |------|---------|---------|
-| `llm-rubric` | LLM grades output against criteria | "Code uses correct contract addresses" |
-| `contains` | Output must include string | `@pancakeswap/smart-router` |
+| `llm-rubric` | LLM grades output against criteria | "Output uses verified addresses and sane defaults" |
+| `contains` | Output must include string | `https://pancakeswap.finance/swap` |
 | `not-contains` | Output must not include string | Hardcoded private keys |
 | `cost` | Keeps inference cost under budget | `< 0.50` |
 
