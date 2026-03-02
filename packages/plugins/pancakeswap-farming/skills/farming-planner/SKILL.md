@@ -342,13 +342,13 @@ def build_link(pool):
         return f'https://pancakeswap.finance/add/{t0}/{t1}/{fee}?chain={chain_key}&persistChain=1'
     elif proto == 'stable':
         return f'https://pancakeswap.finance/stable/add/{t0}/{t1}?chain={chain_key}&persistChain=1'
-    elif proto in ('infinityCl', 'infinityBin'):
+    elif proto in ('infinityCl', 'infinityBin', 'infinityStable'):
         pool_id = pool['id']
         return f'https://pancakeswap.finance/liquidity/add/{chain_key}/infinity/{pool_id}?chain={chain_key}&persistChain=1'
     else:
         return f'https://pancakeswap.finance/liquidity/pools?chain={chain_key}'
 data = json.load(sys.stdin)
-pools = data if isinstance(data, list) else data.get('data', [])
+pools = data if isinstance(data, list) else data.get('rows', data.get('data', []))
 if CHAIN_FILTER:
     chain_ids = {v: k for k, v in CHAIN_ID_TO_KEY.items()}
     target_id = chain_ids.get(CHAIN_FILTER.lower())
@@ -417,28 +417,35 @@ PYEOF
 
 **Step 2 — Run the query (pick ONE line based on the target chain):**
 
-The API URL supports these query params: `protocols` (v2, v3, stable, infinityBin, infinityCl) and `chains` (bsc, ethereum, base, arbitrum, zksync, opbnb, linea, monad).
+Two API endpoints are available:
+- **`/list`** (default, recommended) — returns ALL pools (farm + non-farm LPs), sorted by volume. Best for "top APR" queries since it covers the full pool universe.
+- **`/farming`** — returns only pools registered in active farms. Use when the user specifically asks about farmed pools.
 
-The script calculates CAKE Yield APR on-chain for V3 farms and via the Infinity campaigns API for infinityCl/infinityBin pools. For V2/stable pools, only LP Fee APR is shown (CAKE column shows `-`).
+Both endpoints support: `protocols` (v2, v3, stable, infinityBin, infinityCl, infinityStable) and `chains` (bsc, ethereum, base, arbitrum, zksync, opbnb, linea, monad).
+
+The script calculates CAKE Yield APR on-chain for V3 farms and via the Infinity campaigns API for infinityCl/infinityBin pools. For other pools, only LP Fee APR is shown (CAKE column shows `-`).
 
 ```bash
-# All chains, all protocols (default):
-curl -s "https://explorer.pancakeswap.com/api/cached/pools/farming?protocols=v2&protocols=v3&protocols=stable&protocols=infinityBin&protocols=infinityCl&chains=bsc&chains=ethereum&chains=base&chains=arbitrum&chains=zksync" | python3 /tmp/pcs_farms.py
+# All chains, all protocols (default — uses /list for comprehensive results):
+curl -s "https://explorer.pancakeswap.com/api/cached/pools/list?orderBy=volumeUSD24h&protocols=v2&protocols=v3&protocols=stable&protocols=infinityBin&protocols=infinityCl&protocols=infinityStable&chains=bsc&chains=ethereum&chains=base&chains=arbitrum&chains=zksync&limit=100" | python3 /tmp/pcs_farms.py
 
 # BSC only:
-export CHAIN_FILTER=bsc && curl -s "https://explorer.pancakeswap.com/api/cached/pools/farming?protocols=v2&protocols=v3&protocols=stable&protocols=infinityBin&protocols=infinityCl&chains=bsc" | python3 /tmp/pcs_farms.py
+curl -s "https://explorer.pancakeswap.com/api/cached/pools/list?orderBy=volumeUSD24h&protocols=v2&protocols=v3&protocols=stable&protocols=infinityBin&protocols=infinityCl&protocols=infinityStable&chains=bsc&limit=100" | CHAIN_FILTER=bsc python3 /tmp/pcs_farms.py
 
 # Base only:
-export CHAIN_FILTER=base && curl -s "https://explorer.pancakeswap.com/api/cached/pools/farming?protocols=v2&protocols=v3&protocols=stable&protocols=infinityBin&protocols=infinityCl&chains=base" | python3 /tmp/pcs_farms.py
+curl -s "https://explorer.pancakeswap.com/api/cached/pools/list?orderBy=volumeUSD24h&protocols=v2&protocols=v3&protocols=stable&protocols=infinityBin&protocols=infinityCl&protocols=infinityStable&chains=base&limit=100" | CHAIN_FILTER=base python3 /tmp/pcs_farms.py
 
-# Base V3 only:
-export CHAIN_FILTER=base PROTOCOL_FILTER=v3 && curl -s "https://explorer.pancakeswap.com/api/cached/pools/farming?protocols=v3&chains=base" | python3 /tmp/pcs_farms.py
+# BSC V3 only:
+curl -s "https://explorer.pancakeswap.com/api/cached/pools/list?orderBy=volumeUSD24h&protocols=v3&chains=bsc&limit=100" | CHAIN_FILTER=bsc python3 /tmp/pcs_farms.py
 
 # Arbitrum only:
-export CHAIN_FILTER=arb && curl -s "https://explorer.pancakeswap.com/api/cached/pools/farming?protocols=v2&protocols=v3&protocols=stable&protocols=infinityBin&protocols=infinityCl&chains=arbitrum" | python3 /tmp/pcs_farms.py
+curl -s "https://explorer.pancakeswap.com/api/cached/pools/list?orderBy=volumeUSD24h&protocols=v2&protocols=v3&protocols=stable&protocols=infinityBin&protocols=infinityCl&protocols=infinityStable&chains=arbitrum&limit=100" | CHAIN_FILTER=arb python3 /tmp/pcs_farms.py
 
 # Lower minimum TVL to $1000 (default is $10000):
-export MIN_TVL=1000 && curl -s "https://explorer.pancakeswap.com/api/cached/pools/farming?protocols=v2&protocols=v3&protocols=stable&protocols=infinityBin&protocols=infinityCl&chains=bsc" | python3 /tmp/pcs_farms.py
+curl -s "https://explorer.pancakeswap.com/api/cached/pools/list?orderBy=volumeUSD24h&protocols=v2&protocols=v3&protocols=stable&protocols=infinityBin&protocols=infinityCl&protocols=infinityStable&chains=bsc&limit=100" | MIN_TVL=1000 python3 /tmp/pcs_farms.py
+
+# Farm-only pools (alternative — only pools with active farming rewards):
+curl -s "https://explorer.pancakeswap.com/api/cached/pools/farming?protocols=v2&protocols=v3&protocols=stable&protocols=infinityBin&protocols=infinityCl&chains=bsc" | CHAIN_FILTER=bsc python3 /tmp/pcs_farms.py
 ```
 
 The output is a ready-to-use markdown table with LP Fee APR, CAKE APR, and Total APR columns, plus deep links per row. Copy it directly into your response.
