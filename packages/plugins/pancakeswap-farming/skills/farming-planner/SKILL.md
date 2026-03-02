@@ -206,7 +206,7 @@ You MUST follow the exact two-step process below. Do NOT improvise.
 The script fetches LP fee APR from the Explorer API and calculates **CAKE Yield APR** on-chain by querying MasterChef v3 (`latestPeriodCakePerSecond`, `v3PoolAddressPid`, `poolInfo`) via batched JSON-RPC calls. For Infinity farms, it fetches campaign data from `https://infinity.pancakeswap.com/farms/campaigns/{chainId}/false` and calculates yield as `Σ (totalRewardAmount / 1e18 / duration * SECONDS_PER_YEAR)`. It requires the `requests` library (auto-installs if missing).
 
 ```bash
-PCS_FARMS_SCRIPT=$(mktemp /tmp/pcs_farms_XXXXXX.py)
+PCS_FARMS_SCRIPT=$(mktemp /tmp/pcs_farms_XXXXXX)
 cat > "$PCS_FARMS_SCRIPT" << 'PYEOF'
 import json, sys, os, time, re
 try:
@@ -680,7 +680,7 @@ When recommending Syrup Pools, ALWAYS run this script first to show the user cur
 The script fetches active Syrup Pools from the PancakeSwap config API, reads total staked amounts on-chain, fetches token prices from CoinGecko/DexScreener, and calculates APR.
 
 ```bash
-PCS_SYRUP_SCRIPT=$(mktemp /tmp/pcs_syrup_XXXXXX.py)
+PCS_SYRUP_SCRIPT=$(mktemp /tmp/pcs_syrup_XXXXXX)
 cat > "$PCS_SYRUP_SCRIPT" << 'PYEOF'
 import json, sys, os, time
 try:
