@@ -348,47 +348,47 @@ Is the pair correlated but not strictly stable (e.g., BNB/ETH)?
 ### V3 Deep Link Format
 
 ```
-https://pancakeswap.finance/liquidity/add/v3/{tokenA}/{tokenB}/{feeAmount}?chain={chainKey}
+https://pancakeswap.finance/add/{tokenA}/{tokenB}/{feeAmount}?chain={chainKey}
 ```
 
 **Parameters:**
 - `tokenA`: Token address or native symbol (BNB, ETH)
 - `tokenB`: Token address or native symbol
-- `feeAmount`: Fee tier in basis points (1, 5, 25, 100 for 0.01%, 0.05%, 0.25%, 1.0%)
+- `feeAmount`: Fee tier in basis points (100, 500, 2500, 10000 for 0.01%, 0.05%, 0.25%, 1.0%)
 - `chain`: Chain key (bsc, eth, arb, base, zksync, linea, polygonzkevm, opbnb)
 
 ### V2 Deep Link Format
 
 ```
-https://pancakeswap.finance/add/{tokenA}/{tokenB}?chain={chainKey}
+https://pancakeswap.finance/v2/add/{tokenA}/{tokenB}?chain={chainKey}
 ```
 
 ### StableSwap Deep Link Format (BSC Only)
 
 ```
-https://pancakeswap.finance/add/{tokenA}/{tokenB}?chain=bsc&stableSwap=true
+https://pancakeswap.finance/stable/add/{tokenA}/{tokenB}?chain=bsc
 ```
 
 ### Deep Link Examples
 
 **CAKE/BNB V3 (0.25% fee tier) on BSC:**
 ```
-https://pancakeswap.finance/liquidity/add/v3/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82/BNB/2500?chain=bsc
+https://pancakeswap.finance/add/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82/BNB/2500?chain=bsc
 ```
 
 **USDC/ETH V3 (0.05% fee tier) on Ethereum:**
 ```
-https://pancakeswap.finance/liquidity/add/v3/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/ETH/500?chain=eth
+https://pancakeswap.finance/add/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/ETH/500?chain=eth
 ```
 
 **USDT/USDC StableSwap on BSC:**
 ```
-https://pancakeswap.finance/add/0x55d398326f99059fF775485246999027B3197955/0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d?chain=bsc&stableSwap=true
+https://pancakeswap.finance/stable/add/0x55d398326f99059fF775485246999027B3197955/0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d?chain=bsc
 ```
 
 **USDT/BUSD V3 (0.01% fee tier) on BSC:**
 ```
-https://pancakeswap.finance/liquidity/add/v3/0x55d398326f99059fF775485246999027B3197955/0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56/100?chain=bsc
+https://pancakeswap.finance/add/0x55d398326f99059fF775485246999027B3197955/0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56/100?chain=bsc
 ```
 
 ### Deep Link Builder (TypeScript)
@@ -428,16 +428,16 @@ function buildPancakeSwapLiquidityLink(params: AddLiquidityParams): string {
   if (params.version === 'v3') {
     const feeAmount = FEE_TIER_MAP[params.feeTier || '0.25%']
     if (!feeAmount) throw new Error(`Invalid fee tier: ${params.feeTier}`)
-    return `https://pancakeswap.finance/liquidity/add/v3/${params.tokenA}/${params.tokenB}/${feeAmount}?chain=${chain}`
+    return `https://pancakeswap.finance/add/${params.tokenA}/${params.tokenB}/${feeAmount}?chain=${chain}`
   }
 
   if (params.version === 'stableswap') {
     if (params.chainId !== 56) throw new Error('StableSwap only available on BSC')
-    return `https://pancakeswap.finance/add/${params.tokenA}/${params.tokenB}?chain=bsc&stableSwap=true`
+    return `https://pancakeswap.finance/stable/add/${params.tokenA}/${params.tokenB}?chain=bsc`
   }
 
   // V2
-  return `https://pancakeswap.finance/add/${params.tokenA}/${params.tokenB}?chain=${chain}`
+  return `https://pancakeswap.finance/v2/add/${params.tokenA}/${params.tokenB}?chain=${chain}`
 }
 
 // Example usage
@@ -450,7 +450,7 @@ const link = buildPancakeSwapLiquidityLink({
 })
 
 console.log(link)
-// https://pancakeswap.finance/liquidity/add/v3/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82/BNB/2500?chain=bsc
+// https://pancakeswap.finance/add/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82/BNB/2500?chain=bsc
 ```
 
 ---
@@ -482,7 +482,7 @@ PancakeSwap offers **StableSwap** pools on BSC for efficiently trading between s
 ### StableSwap Deep Link
 
 ```
-https://pancakeswap.finance/add/0x55d398326f99059fF775485246999027B3197955/0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d?chain=bsc&stableSwap=true
+https://pancakeswap.finance/stable/add/0x55d398326f99059fF775485246999027B3197955/0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d?chain=bsc
 ```
 
 ---
@@ -560,20 +560,20 @@ Farm Options:
   • Fee captures only if 24h volume > $10M on this pair
 
 🔗 Open in PancakeSwap:
-https://pancakeswap.finance/liquidity/add/v3/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82/BNB/2500?chain=bsc
+https://pancakeswap.finance/add/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82/BNB/2500?chain=bsc
 ```
 
 ### Attempt to Open Browser
 
 ```bash
 # macOS
-open "https://pancakeswap.finance/liquidity/add/..."
+open "https://pancakeswap.finance/add/..."
 
 # Linux
-xdg-open "https://pancakeswap.finance/liquidity/add/..."
+xdg-open "https://pancakeswap.finance/add/..."
 
 # Windows (Git Bash)
-start "https://pancakeswap.finance/liquidity/add/..."
+start "https://pancakeswap.finance/add/..."
 ```
 
 If the open command fails, display the URL prominently so the user can copy it.

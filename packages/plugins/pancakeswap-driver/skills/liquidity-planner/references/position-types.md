@@ -58,7 +58,7 @@ When you add liquidity at price P:
 
 **Deep link format**:
 ```
-https://pancakeswap.finance/add/{tokenA}/{tokenB}?chain=bsc
+https://pancakeswap.finance/v2/add/{tokenA}/{tokenB}?chain=bsc
 ```
 
 **Parameter explanations**:
@@ -68,7 +68,7 @@ https://pancakeswap.finance/add/{tokenA}/{tokenB}?chain=bsc
 
 **Example: CAKE/WBNB on BSC**
 ```
-https://pancakeswap.finance/add/0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82/0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c?chain=bsc
+https://pancakeswap.finance/v2/add/0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82/0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c?chain=bsc
 ```
 
 ### Fee Details
@@ -157,7 +157,7 @@ Choose your range based on expected volatility and capital efficiency goals:
 
 **Deep link format**:
 ```
-https://pancakeswap.finance/liquidity/add/v3/{tokenA}/{tokenB}/{feeAmount}?chain={chainKey}
+https://pancakeswap.finance/add/{tokenA}/{tokenB}/{feeAmount}?chain={chainKey}
 ```
 
 **Parameter explanations**:
@@ -168,12 +168,12 @@ https://pancakeswap.finance/liquidity/add/v3/{tokenA}/{tokenB}/{feeAmount}?chain
 
 **Example: CAKE/WBNB 0.25% on BSC**
 ```
-https://pancakeswap.finance/liquidity/add/v3/0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82/0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c/2500?chain=bsc
+https://pancakeswap.finance/add/0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82/0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c/2500?chain=bsc
 ```
 
 **Example: USDC/USDT 0.01% on Ethereum**
 ```
-https://pancakeswap.finance/liquidity/add/v3/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48/0xdac17f958d2ee523a2206206994597c13d831ec7/100?chain=ethereum
+https://pancakeswap.finance/add/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48/0xdac17f958d2ee523a2206206994597c13d831ec7/100?chain=eth
 ```
 
 ### Fee Tier Selection Decision Tree
@@ -246,18 +246,17 @@ The A parameter controls how "tight" the curve is around 1:1:
 
 **Deep link format**:
 ```
-https://pancakeswap.finance/add/{tokenA}/{tokenB}?chain=bsc&stableSwap=true
+https://pancakeswap.finance/stable/add/{tokenA}/{tokenB}?chain=bsc
 ```
 
 **Parameter explanations**:
 - `{tokenA}`: Contract address of first token
 - `{tokenB}`: Contract address of second token
 - `chain=bsc`: Chain identifier (StableSwap is BSC-only)
-- `stableSwap=true`: Explicitly selects StableSwap pool
 
 **Example: USDT/USDC StableSwap on BSC**
 ```
-https://pancakeswap.finance/add/0x55d398326f99059ff775485246999027b3197955/0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d?chain=bsc&stableSwap=true
+https://pancakeswap.finance/stable/add/0x55d398326f99059ff775485246999027b3197955/0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d?chain=bsc
 ```
 
 ### Fee Structure
@@ -349,7 +348,7 @@ Where:
 
 **Format**:
 ```
-https://pancakeswap.finance/add/{tokenA}/{tokenB}?chain={chainKey}
+https://pancakeswap.finance/v2/add/{tokenA}/{tokenB}?chain={chainKey}
 ```
 
 **Token Identifiers**:
@@ -361,23 +360,23 @@ https://pancakeswap.finance/add/{tokenA}/{tokenB}?chain={chainKey}
 |---------|---|
 | BSC | `bsc` |
 | Ethereum | `eth` |
-| Arbitrum | `arbitrum` |
+| Arbitrum | `arb` |
 | Base | `base` |
 | zkSync | `zksync` |
 | Linea | `linea` |
-| Polygon zkEVM | `polygon_zkevm` |
+| Polygon zkEVM | `polygonzkevm` |
 | opBNB | `opbnb` |
 
 **Example**:
 ```
-https://pancakeswap.finance/add/0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82/BNB?chain=bsc
+https://pancakeswap.finance/v2/add/0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82/BNB?chain=bsc
 ```
 
 ### V3 Deep Link
 
 **Format**:
 ```
-https://pancakeswap.finance/liquidity/add/v3/{tokenA}/{tokenB}/{feeAmount}?chain={chainKey}
+https://pancakeswap.finance/add/{tokenA}/{tokenB}/{feeAmount}?chain={chainKey}
 ```
 
 **Fee Amount Values**:
@@ -388,21 +387,21 @@ https://pancakeswap.finance/liquidity/add/v3/{tokenA}/{tokenB}/{feeAmount}?chain
 
 **Example**:
 ```
-https://pancakeswap.finance/liquidity/add/v3/0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82/0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c/2500?chain=bsc
+https://pancakeswap.finance/add/0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82/0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c/2500?chain=bsc
 ```
 
 ### StableSwap Deep Link
 
 **Format**:
 ```
-https://pancakeswap.finance/add/{tokenA}/{tokenB}?chain=bsc&stableSwap=true
+https://pancakeswap.finance/stable/add/{tokenA}/{tokenB}?chain=bsc
 ```
 
 **Note**: StableSwap is BSC-only; the chain parameter must be `bsc`.
 
 **Example**:
 ```
-https://pancakeswap.finance/add/0x55d398326f99059ff775485246999027b3197955/0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d?chain=bsc&stableSwap=true
+https://pancakeswap.finance/stable/add/0x55d398326f99059ff775485246999027b3197955/0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d?chain=bsc
 ```
 
 ### Optional Parameters (All Versions)
