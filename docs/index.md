@@ -36,6 +36,7 @@ features:
   - icon: 🤖
     title: Agent-Agnostic
     details: Works with Claude Code, Cursor, Windsurf, Copilot, and any LLM agent that reads Markdown skills.
+    link: /getting-started/#agent-agnostic-design
 ---
 
 ## How It Works
