@@ -4,7 +4,11 @@ export default defineConfig({
   title: 'PancakeSwap AI',
   description: 'AI tools for building on PancakeSwap — skills, plugins, and agents for any coding agent.',
   head: [
-    ['link', { rel: 'icon', type: 'image/png', href: '/logo.png' }],
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
+    ['link', { rel: 'icon', type: 'image/png', href: '/favicon-32x32.png', sizes: '32x32' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
+    ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800&display=swap' }],
   ],
   markdown: {
     theme: {
@@ -13,7 +17,7 @@ export default defineConfig({
     },
   },
   themeConfig: {
-    logo: '/logo.png',
+    logo: '/logo.svg',
     nav: [
       { text: 'Guide', link: '/getting-started/' },
       { text: 'Plugins', link: '/plugins/' },
