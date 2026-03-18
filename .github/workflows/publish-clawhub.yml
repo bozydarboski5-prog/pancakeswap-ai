@@ -1,0 +1,44 @@
+name: Publish to ClaWHub
+
+on:
+  push:
+    branches:
+      - main
+      - feat/claw-hub
+    paths:
+      - 'packages/plugins/**/SKILL.md'
+      - 'packages/plugins/**/.claude-plugin/plugin.json'
+
+jobs:
+  publish:
+    name: Publish skills to ClaWHub
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate plugins
+        run: node scripts/validate-plugin.cjs
+
+      - name: Install ClaWHub CLI
+        run: npm install -g clawhub
+
+      - name: Authenticate with ClaWHub
+        run: clawhub login --token "$CLAWHUB_TOKEN"
+        env:
+          CLAWHUB_TOKEN: ${{ secrets.CLAWHUB_TOKEN }}
+
+      - name: Publish skills
+        run: |
+          node scripts/publish-clawhub.cjs \
+            --changelog "Release from ${{ github.sha }}"
