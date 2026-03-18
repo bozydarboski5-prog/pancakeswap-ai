@@ -1,5 +1,5 @@
 ---
-name: pancakeswap/liquidity-planner
+name: liquidity-planner
 slug: pancakeswap-liquidity-planner
 description: Plan liquidity provision on PancakeSwap. Use when user says "add liquidity on pancakeswap", "provide liquidity", "LP on pancakeswap", "farm pancakeswap", or describes wanting to deposit tokens into liquidity pools without writing code.
 homepage: https://github.com/pancakeswap/pancakeswap-ai

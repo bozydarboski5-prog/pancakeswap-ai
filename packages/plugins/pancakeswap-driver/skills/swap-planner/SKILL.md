@@ -1,5 +1,5 @@
 ---
-name: pancakeswap/swap-planner
+name: swap-planner
 slug: pancakeswap-swap-planner
 description: Plan and generate deep links for token swaps on PancakeSwap. Use when user says "swap on pancakeswap", "buy [token] with BNB", "pancakeswap swap", "I want to swap", or describes wanting to exchange tokens on PancakeSwap without writing code.
 homepage: https://github.com/pancakeswap/pancakeswap-ai

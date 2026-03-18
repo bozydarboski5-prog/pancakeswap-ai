@@ -1,5 +1,5 @@
 ---
-name: pancakeswap/farming-planner
+name: farming-planner
 slug: pancakeswap-farming-planner
 description: Plan yield farming and CAKE staking on PancakeSwap. Use when user says "farm on pancakeswap", "stake CAKE", "unstake CAKE", "stake LP", "unstake LP", "yield farming", "syrup pool", "pancakeswap farm", "earn CAKE", "farm APR", "harvest rewards", "deposit LP", "withdraw LP", or describes wanting to stake, unstake, or earn yield on PancakeSwap.
 homepage: https://github.com/pancakeswap/pancakeswap-ai
