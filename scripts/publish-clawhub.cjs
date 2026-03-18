@@ -18,24 +18,23 @@ const changelog = changelogIdx !== -1 ? args[changelogIdx + 1] : 'Published via 
 
 const VERSION_REGEX = /version:\s*['"]?(\d+\.\d+\.\d+)/
 const NAME_REGEX = /^name:\s*(.+)$/m
+const SLUG_REGEX = /^slug:\s*(.+)$/m
 
 function parseVersion(skillMdPath) {
   const content = fs.readFileSync(skillMdPath, 'utf8')
   const match = content.match(VERSION_REGEX)
-  if (!match) {
-    throw new Error(`No version found in frontmatter: ${skillMdPath}`)
-  }
+  if (!match) throw new Error(`No version found in frontmatter: ${skillMdPath}`)
   return match[1]
 }
 
-function parseName(skillMdPath) {
+function parseSlug(skillMdPath) {
   const content = fs.readFileSync(skillMdPath, 'utf8')
-  const match = content.match(NAME_REGEX)
-  if (!match) {
-    throw new Error(`No name found in frontmatter: ${skillMdPath}`)
-  }
-  // "pancakeswap/swap-planner" → "pancakeswap-swap-planner"
-  return match[1].trim().replace(/\//g, '-')
+  // Prefer explicit slug field; fall back to deriving from name
+  const slugMatch = content.match(SLUG_REGEX)
+  if (slugMatch) return slugMatch[1].trim()
+  const nameMatch = content.match(NAME_REGEX)
+  if (!nameMatch) throw new Error(`No name found in frontmatter: ${skillMdPath}`)
+  return nameMatch[1].trim().replace(/\//g, '-')
 }
 
 function findSkills(pluginsDir) {
@@ -70,7 +69,7 @@ for (const { pluginName, skillName, skillDir, skillMd } of skills) {
   let version, slug
   try {
     version = parseVersion(skillMd)
-    slug = parseName(skillMd)
+    slug = parseSlug(skillMd)
   } catch (e) {
     console.error(`  ❌ ${pluginName}/${skillName}: ${e.message}`)
     hasErrors = true
